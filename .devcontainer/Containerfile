@@ -12,8 +12,11 @@ RUN apt-get update \
 
 # Single-user Nix installed as root. With rootless Podman, container root maps to the
 # host user, so no host UID/GID needs to be configured. Do NOT use with rootful engines.
+# build-users-group is emptied because there is no nixbld group in a single-user install.
 RUN mkdir -m 0755 /nix \
- && curl -fsSL "$NIX_INSTALLER" | sh -s -- --no-daemon \
+ && mkdir -p /etc/nix \
+ && echo "build-users-group =" > /etc/nix/nix.conf \
+ && curl -fsSL "$NIX_INSTALLER" | NIX_CONFIG="build-users-group =" sh -s -- --no-daemon \
  && mkdir -p ~/.config/nix \
  && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf \
  && echo '. ~/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
