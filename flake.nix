@@ -10,7 +10,15 @@
       packages = forAll (pkgs: {
         tools = pkgs.buildEnv {
           name = "sona-tools";
-          paths = with pkgs; [ git gh go-task go markdownlint-cli2 raptor2 nixpkgs-fmt ];
+          paths = with pkgs; [
+            git               # version control
+            gh                # GitHub CLI (auth, PRs)
+            go-task           # Taskfile runner ("task")
+            go                # used to build beans (not packaged in nixpkgs)
+            markdownlint-cli2 # Markdown linting (task lint:md)
+            raptor2           # provides "rapper" to validate OWL/SKOS/RDF (task validate:rdf)
+            nixpkgs-fmt       # formatting for flake.nix
+          ];
         };
         default = self.packages.${pkgs.system}.tools;
       });
