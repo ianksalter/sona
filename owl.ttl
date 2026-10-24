@@ -1,0 +1,144 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix sona: <https://ianksalter.eu/schema/sona#> .
+
+<https://ianksalter.eu/schema/sona>
+    a owl:Ontology ;
+    dct:title "Sona ontology"@en ;
+    dct:description "Abstract ontology formalising core Sona concepts: Sona, Artifact, Schema, Entity, Contribution, Quality, Measure, and their relationships."@en ;
+    .
+
+### Classes
+
+sona:Artifact a owl:Class ;
+    rdfs:label "Artifact"@en ;
+    rdfs:comment "An item of knowledge produced or used within a Sona. An Artifact satisfies one or more Schemas."@en ;
+    .
+
+sona:Schema a owl:Class ;
+    rdfs:label "Schema"@en ;
+    rdfs:comment "A set of rules or criteria that an Artifact must meet. A Schema defines how to measure the quality of its Artifacts."@en ;
+    .
+
+sona:Sona a owl:Class ;
+    rdfs:label "Sona"@en ;
+    rdfs:comment "A collection of knowledge comprising Artifacts and Schemas."@en ;
+    .
+
+sona:Subsona a owl:Class ;
+    rdfs:label "Subsona"@en ;
+    rdfs:comment "A Sona composed within another Sona to separate key components."@en ;
+    rdfs:subClassOf sona:Sona ;
+    .
+
+sona:Entity a owl:Class ;
+    rdfs:label "Entity"@en ;
+    rdfs:comment "An actor capable of using or modifying a Sona (human, computational, or collection of entities)."@en ;
+    .
+
+sona:Contribution a owl:Class ;
+    rdfs:label "Contribution"@en ;
+    rdfs:comment "A modification to a Sona normally designed to improve its Quality."@en ;
+    .
+
+sona:Quality a owl:Class ;
+    rdfs:label "Quality"@en ;
+    rdfs:comment "An ordering (at minimum a pre order) of properties that define the worth of an Artifact with respect to a schema."@en ;
+    .
+
+sona:Measure a owl:Class ;
+    rdfs:label "Measure"@en ;
+    rdfs:comment "A function that determines the Quality of an Artifact with respect to a schema."@en ;
+    .
+
+sona:Sonapana a owl:Class ;
+    rdfs:label "Sonapana"@en ;
+    rdfs:comment "The network of Sonas."@en ;
+    .
+
+### Object properties
+
+sona:hasSchema a owl:ObjectProperty ;
+    rdfs:label "hasSchema"@en ;
+    rdfs:comment "An artifact may have one or more schemas that it aims to satisfy."@en ;
+    rdfs:domain sona:Artifact ;
+    rdfs:range sona:Schema ;
+    .
+    
+sona:hasMeasure a owl:ObjectProperty ;
+    rdfs:label "hasMeasure"@en ;
+    rdfs:comment "A Schema has an associated Measure to evaluate Quality of artifacts."@en ;
+    rdfs:domain sona:Schema ;
+    rdfs:range sona:Measure ;
+    .
+
+sona:hasQuality a owl:ObjectProperty ;
+    rdfs:label "hasQuality"@en ;
+    rdfs:comment "A schema defines the quality criteria for its artifacts."@en ;
+    rdfs:domain sona:Schema ;
+    rdfs:range sona:Quality ;
+    .
+
+sona:composedOf a owl:ObjectProperty ;
+    rdfs:label "composedOf"@en ;
+    rdfs:comment "A Sona may be composed of other Sonas (Subsonas)."@en ;
+    rdfs:domain sona:Sona ;
+    rdfs:range sona:Sona ;
+    .
+
+sona:hasContribution a owl:ObjectProperty ;
+    rdfs:label "hasContribution"@en ;
+    rdfs:comment "A Sona has Contributions proposed to improve it."@en ;
+    rdfs:domain sona:Sona ;
+    rdfs:range sona:Contribution ;
+    .
+
+sona:madeBy a owl:ObjectProperty ;
+    rdfs:label "madeBy"@en ;
+    rdfs:comment "A Contribution is made by an Entity."@en ;
+    rdfs:domain sona:Contribution ;
+    rdfs:range sona:Entity ;
+    .
+
+sona:hasCurator a owl:ObjectProperty ;
+    rdfs:label "hasCurator"@en ;
+    rdfs:comment "A Sona has an Entity acting as Curator (who can accept/reject Contributions)."@en ;
+    rdfs:domain sona:Sona ;
+    rdfs:range sona:Entity ;
+    .
+
+sona:hasContributor a owl:ObjectProperty ;
+    rdfs:label "hasContributor"@en ;
+    rdfs:comment "A Sona has an Entity acting as Contributor (who can propose Contributions)."@en ;
+    rdfs:domain sona:Sona ;
+    rdfs:range sona:Entity ;
+    .
+
+sona:memberOf a owl:ObjectProperty ;
+    rdfs:label "memberOf"@en ;
+    rdfs:comment "Artifacts and Schemas are members of a Sona."@en ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf ( sona:Artifact sona:Schema )
+    ] ;
+    rdfs:range sona:Sona .
+
+sona:personalSona a owl:ObjectProperty ;
+    rdfs:label "personalSona"@en ;
+    rdfs:comment "A unique Sona associated with an Entity."@en ;
+    rdfs:domain sona:Entity ;
+    rdfs:range sona:Sona ;
+    .
+
+### Datatype properties
+
+sona:isPrivate a owl:DatatypeProperty ;
+    rdfs:label "isPrivate"@en ;
+    rdfs:comment "Indicates whether a Subsona is Private (visible only to Curators) or Public."@en ;
+    rdfs:domain sona:Subsona ;
+    rdfs:range xsd:boolean ;
+    .
+
