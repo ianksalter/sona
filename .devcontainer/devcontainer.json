@@ -1,0 +1,49 @@
+{
+  // Dev container for editing Markdown, OWL and SKOS. See README.md in this directory.
+  "name": "sona",
+  "build": { "dockerfile": "Dockerfile" },
+
+  // Rootless Podman: map the host user to the same UID/GID inside the container
+  // so files in the bind-mounted workspace are writable and git commits work.
+  "containerUser": "vscode",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": false,
+  "runArgs": ["--userns=keep-id:uid=1000,gid=1000"],
+
+  // ":Z" relabels the mount for SELinux hosts (Fedora, RHEL); harmless elsewhere.
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/sona,type=bind,consistency=cached,z=true",
+  "workspaceFolder": "/workspaces/sona",
+
+  // No host credential directories (~/.ssh, ~/.config/gh, ...) are mounted.
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "task.vscode-task",
+        "hmans.beans-vscode",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "stardog-union.stardog-rdf-grammars",
+        "stardog-union.vscode-langserver-turtle",
+        "redhat.vscode-xml",
+        "jnoortheen.nix-ide"
+      ],
+      "settings": {
+        "files.associations": {
+          "*.owl": "xml",
+          "*.rdf": "xml",
+          "*.ttl": "turtle"
+        },
+        "files.eol": "\n",
+        "git.autofetch": false,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}
