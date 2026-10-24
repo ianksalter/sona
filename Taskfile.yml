@@ -1,0 +1,28 @@
+version: "3"
+
+tasks:
+  default:
+    desc: List tasks
+    cmds: [task --list]
+    silent: true
+
+  lint:md:
+    desc: Lint Markdown files
+    cmds: ["markdownlint-cli2 '**/*.md' '#.beans' '#node_modules'"]
+
+  validate:rdf:
+    desc: Check that .owl/.rdf/.ttl files parse (requires rapper)
+    cmds:
+      - |
+        status=0
+        for f in $(git ls-files '*.owl' '*.rdf' '*.ttl'); do
+          case "$f" in *.ttl) fmt=turtle;; *) fmt=rdfxml;; esac
+          rapper -q -i $fmt -c "$f" || status=1
+        done
+        exit $status
+
+  check:
+    desc: Run all quality checks
+    cmds:
+      - task: lint:md
+      - task: validate:rdf
