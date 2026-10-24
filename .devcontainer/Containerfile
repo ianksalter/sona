@@ -3,24 +3,18 @@
 FROM docker.io/library/debian:13.1-slim
 
 ARG NIX_INSTALLER=https://nixos.org/nix/install
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=1000
 
 # Minimal OS packages: git/ssh are needed by VS Code, xz/curl by the Nix installer.
-# The non-root user matches the host UID/GID (see devcontainer.json).
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       bash ca-certificates curl git openssh-client xz-utils \
- && rm -rf /var/lib/apt/lists/* \
- && groupadd --gid ${USER_GID} ${USERNAME} \
- && useradd --uid ${USER_UID} --gid ${USER_GID} -m -s /bin/bash ${USERNAME} \
- && mkdir -m 0755 /nix && chown ${USERNAME}:${USERNAME} /nix
+ && rm -rf /var/lib/apt/lists/*
 
-# Single-user Nix owned by the non-root user: no daemon, so no root needed at run time.
-USER ${USERNAME}
-RUN curl -fsSL "$NIX_INSTALLER" | sh -s -- --no-daemon \
+# Single-user Nix installed as root. With rootless Podman, container root maps to the
+# host user, so no host UID/GID needs to be configured. Do NOT use with rootful engines.
+RUN mkdir -m 0755 /nix \
+ && curl -fsSL "$NIX_INSTALLER" | sh -s -- --no-daemon \
  && mkdir -p ~/.config/nix \
  && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf \
  && echo '. ~/.nix-profile/etc/profile.d/nix.sh' >> ~/.bashrc
-ENV PATH=/home/vscode/.nix-profile/bin:/home/vscode/go/bin:$PATH
+ENV PATH=/root/.nix-profile/bin:/root/go/bin:$PATH

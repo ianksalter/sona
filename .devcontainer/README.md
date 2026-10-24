@@ -24,7 +24,7 @@ Git/GitHub, Copilot, [Task](https://taskfile.dev) and
 
 | File | Purpose |
 | --- | --- |
-| `Containerfile` | Debian 13 (trixie) slim base + single-user Nix owned by `vscode` |
+| `Containerfile` | Debian 13 (trixie) slim base + single-user Nix installed as root |
 | `devcontainer.json` | Podman/permission settings, extensions, settings |
 | `post-create.sh` | Installs Nix tools from `../flake.nix` and builds `beans` with Go |
 | `../flake.nix` | Tool set: git, gh, go-task, go, markdownlint-cli2, raptor2 (`rapper`) |
@@ -32,14 +32,15 @@ Git/GitHub, Copilot, [Task](https://taskfile.dev) and
 
 ## Permissions
 
-Rootless Podman maps your host user to root in the container by default, which
-makes bind-mounted files unwritable by the `vscode` user. We pass
-`--userns=keep-id:uid=1000,gid=1000` and run as `vscode` (UID 1000), so files
-are owned by you on both sides and saving/committing works. This assumes your
-host UID is 1000 (check `id -u`); otherwise change the `uid`/`gid` values in
-`devcontainer.json` and the user ID in the `Containerfile`. The workspace mount
-uses `z=true` so SELinux hosts allow access. Nix runs in single-user mode, so
-no root or daemon is needed.
+The container runs as `root`, which under **rootless Podman** maps to the host
+user running Podman. Workspace files are therefore writable and owned by you on
+the host, whatever your host UID/GID (macOS 501, Linux 1000, ...). Nothing needs
+configuring. The workspace mount uses `z=true` so SELinux hosts allow access.
+Nix runs in single-user mode under `/root`, so no daemon is needed.
+
+**Rootless engines only.** With rootful Docker/Podman, container root is real
+host root: files created in the workspace would be root-owned and processes
+would have full privileges. Do not use this configuration there.
 
 ## Credentials
 

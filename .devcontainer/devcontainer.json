@@ -3,12 +3,9 @@
   "name": "sona",
   "build": { "dockerfile": "Containerfile" },
 
-  // Rootless Podman: map the host user to the same UID/GID inside the container
-  // so files in the bind-mounted workspace are writable and git commits work.
-  "containerUser": "vscode",
-  "remoteUser": "vscode",
-  "updateRemoteUserUID": false,
-  "runArgs": ["--userns=keep-id:uid=1000,gid=1000"],
+  // Rootless Podman: container root maps to the host user, so the bind-mounted
+  // workspace is writable on any host UID (macOS 501, Linux 1000, ...).
+  "remoteUser": "root",
 
   // ":Z" relabels the mount for SELinux hosts (Fedora, RHEL); harmless elsewhere.
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/sona,type=bind,consistency=cached,z=true",
