@@ -1,6 +1,6 @@
 {
   description = "Tooling for editing Markdown, OWL and SKOS in the sona dev container";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs = { self, nixpkgs }:
     let
