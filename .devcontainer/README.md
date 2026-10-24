@@ -27,7 +27,7 @@ Git/GitHub, Copilot, [Task](https://taskfile.dev) and
 | `Containerfile` | Debian 13 (trixie) slim base + single-user Nix installed as root |
 | `devcontainer.json` | Podman/permission settings, extensions, settings |
 | `post-create.sh` | Installs Nix tools from `../flake.nix` and builds `beans` with Go |
-| `../flake.nix` | Tool set: git, gh, go-task, go, markdownlint-cli2, raptor2 (`rapper`) |
+| `../flake.nix` | Tool set: git, gh, go-task, go, markdownlint-cli2, librdf_raptor2 (`rapper`) |
 | `../Taskfile.yml` | `task lint:md`, `task validate:rdf`, `task check` |
 
 ## Permissions
