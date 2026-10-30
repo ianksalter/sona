@@ -1,8 +1,7 @@
 # sona dev container
 
 A Nix-based dev container for editing Markdown, OWL and SKOS in VS Code with
-Git/GitHub, Copilot, [Task](https://taskfile.dev) and
-[Beans](https://github.com/hmans/beans), run with **rootless Podman**.
+Git/GitHub, Copilot and [Task](https://taskfile.dev), run with **rootless Podman**.
 
 ## Workflow
 
@@ -17,8 +16,7 @@ Git/GitHub, Copilot, [Task](https://taskfile.dev) and
    git config --global user.email "you@example.com"
    ```
 
-5. Edit, then run `task check` before committing. Use `beans` (CLI / extension)
-   to hand tasks to and from Copilot; beans are stored in the repo (`.beans`).
+5. Edit, then run `task check` before committing.
 
 ## Files
 
@@ -26,7 +24,7 @@ Git/GitHub, Copilot, [Task](https://taskfile.dev) and
 | --- | --- |
 | `Containerfile` | Debian 13 (trixie) slim base + single-user Nix installed as root |
 | `devcontainer.json` | Podman/permission settings, extensions, settings |
-| `post-create.sh` | Installs Nix tools from `../flake.nix` and builds `beans` with Go |
+| `post-create.sh` | Installs Nix tools from `../flake.nix` |
 | `../flake.nix` | Tool set: git, gh, go-task, go, markdownlint-cli2, librdf_raptor2 (`rapper`) |
 | `../Taskfile.yml` | `task lint:md`, `task validate:rdf`, `task check` |
 
@@ -57,14 +55,13 @@ would have full privileges. Do not use this configuration there.
 | GitHub.copilot, GitHub.copilot-chat | AI assistance |
 | GitHub.vscode-pull-request-github | PRs/issues from VS Code |
 | task.vscode-task | Run Taskfile tasks |
-| selfagency.beans-vscode | Beans task management |
 | yzhang.markdown-all-in-one, DavidAnson.vscode-markdownlint | Markdown editing and linting |
 | stardog-union.stardog-rdf-grammars, stardog-union.vscode-langserver-turtle | Turtle/RDF syntax and language server (SKOS/OWL in Turtle) |
 | redhat.vscode-xml | RDF/XML OWL files |
 | jnoortheen.nix-ide | Editing `flake.nix` |
 
 Git tooling is deliberately kept minimal (no GitLens) in case of a future move
-away from git. `beans` is pinned to a released version in `post-create.sh`.
+away from git.
 
 ## Why `.owl`/`.rdf` are associated with XML
 

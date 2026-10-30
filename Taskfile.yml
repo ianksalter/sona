@@ -8,7 +8,7 @@ tasks:
 
   lint:md:
     desc: Lint Markdown files
-    cmds: ["markdownlint-cli2 '**/*.md' '#.beans' '#node_modules'"]
+    cmds: ["markdownlint-cli2 '**/*.md' '#node_modules'"]
 
   validate:rdf:
     desc: Check that .owl/.rdf/.ttl files parse (requires rapper)

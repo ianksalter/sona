@@ -14,7 +14,6 @@
             git               # version control
             gh                # GitHub CLI (auth, PRs)
             go-task           # Taskfile runner ("task")
-            go                # used to build beans (not packaged in nixpkgs)
             markdownlint-cli2 # Markdown linting (task lint:md)
             librdf_raptor2    # provides "rapper" to validate OWL/SKOS/RDF (task validate:rdf)
             nixpkgs-fmt       # formatting for flake.nix
