@@ -1,6 +1,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dct: <http://purl.org/dc/terms/> .
-@prefix : <http://example.org/sona/> .
+@prefix : <https://ianksalter.eu/schema/sona/skos#> .
+@prefix sona: <https://ianksalter.eu/schema/sona#> .
 
 :scheme a skos:ConceptScheme ;
     dct:title "Sona SKOS Concept Scheme"@en ;
@@ -9,90 +10,109 @@
 
 # Core concepts (English / Spanish labels and short definitions)
 :space a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "space"@en ;
     skos:prefLabel "espacio"@es ;
     skos:definition "A logical or physical space that contains artifacts and collections (e.g., a repository)."@en ;
     skos:definition "Un espacio lógico o físico que contiene artefactos y colecciones (p. ej., un repositorio)."@es .
 
 :artifact a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "artifact"@en ;
     skos:prefLabel "artefacto"@es ;
     skos:definition "An artefact: an item produced or used within a Sona."@en ;
-    skos:definition "Un artefacto: un elemento producido o utilizado dentro de una Sona."@es .
+    skos:definition "Un artefacto: un elemento producido o utilizado dentro de una Sona."@es ;
+    skos:exactMatch sona:Artifact .
 
 :specification a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "specification"@en ;
     skos:prefLabel "especificación"@es ;
     skos:definition "A formal description or schema that artifacts should satisfy."@en ;
     skos:definition "Una descripción formal o esquema que los artefactos deben satisfacer."@es .
 
 :schema a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "schema"@en ;
     skos:prefLabel "esquema"@es ;
     skos:definition "A structural specification describing expected fields, types and constraints."@en ;
-    skos:definition "Una especificación estructural que describe campos, tipos y restricciones esperadas."@es .
+    skos:definition "Una especificación estructural que describe campos, tipos y restricciones esperadas."@es ;
+    skos:exactMatch sona:Schema .
 
 :component a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "component"@en ;
     skos:prefLabel "componente"@es ;
     skos:definition "A reusable part of a Sona (file, directory, or module)."@en ;
     skos:definition "Una parte reutilizable de una Sona (archivo, directorio o módulo)."@es .
 
 :entity a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "entity"@en ;
     skos:prefLabel "entidad"@es ;
     skos:definition "An actor in the system (human, computational agent, or collection)."@en ;
-    skos:definition "Un actor en el sistema (humano, agente computacional o colección)."@es .
+    skos:definition "Un actor en el sistema (humano, agente computacional o colección)."@es ;
+    skos:exactMatch sona:Entity .
 
 :computationalEntity a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "computational entity"@en ;
     skos:prefLabel "entidad computacional"@es ;
     skos:definition "A non-human computational agent or system component."@en ;
     skos:definition "Un agente no humano computacional o componente del sistema."@es .
 
 :human a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "human"@en ;
     skos:prefLabel "humano"@es ;
     skos:definition "A human actor or contributor."@en ;
     skos:definition "Un actor o contribuyente humano."@es .
 
 :organisation a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "organisation"@en ;
     skos:prefLabel "entidades colectivas"@es ;
     skos:definition "A group of entities acting collectively (organisation)."@en ;
     skos:definition "Un grupo de entidades que actúan colectivamente (organización)."@es .
 
 :system a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "system"@en ;
     skos:prefLabel "sistema"@es ;
     skos:definition "A composed set of artefacts and components providing behaviour."@en ;
     skos:definition "Un conjunto compuesto de artefactos y componentes que proporciona comportamiento."@es .
 
 :interface a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "interface"@en ;
     skos:prefLabel "interfaz"@es ;
     skos:definition "A defined boundary or contract between components or systems."@en ;
     skos:definition "Un límite o contrato definido entre componentes o sistemas."@es .
 
 :contribution a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "contribution"@en ;
     skos:prefLabel "contribución"@es ;
     skos:definition "Work or changes proposed to improve a Sona."@en ;
-    skos:definition "Trabajo o cambios propuestos para mejorar una Sona."@es .
+    skos:definition "Trabajo o cambios propuestos para mejorar una Sona."@es ;
+    skos:exactMatch sona:Contribution .
 
 :proposedContribution a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "proposed contribution"@en ;
     skos:prefLabel "contribución propuesta"@es ;
     skos:definition "A contribution that has been proposed but not yet accepted."@en ;
     skos:definition "Una contribución que ha sido propuesta pero aún no aceptada."@es .
 
 :acceptedContribution a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "accepted contribution"@en ;
     skos:prefLabel "contribución aceptada"@es ;
     skos:definition "A contribution that a curator has accepted into the Sona."@en ;
     skos:definition "Una contribución que un curador ha aceptado en la Sona."@es .
 
 :curator a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "curator"@en ;
     skos:prefLabel "curador"@es ;
     skos:altLabel "owner"@en ;
@@ -100,76 +120,88 @@
     skos:definition "La persona que puede aceptar o rechazar contribuciones (propietario/committer)."@es .
 
 :contributor a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "contributor"@en ;
     skos:prefLabel "contribuyente"@es ;
     skos:definition "An entity that proposes contributions to the Sona."@en ;
     skos:definition "Una entidad que propone contribuciones a la Sona."@es .
 
 :baseSchema a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "base schema"@en ;
     skos:prefLabel "esquema base"@es ;
-    skos:prefLabel "top specification"@en ;
+    skos:altLabel "top specification"@en ;
     skos:definition "The top-level or principal specification for a Sona."@en ;
     skos:definition "La especificación de nivel superior o principal para una Sona."@es .
 
 :quality a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "quality"@en ;
     skos:prefLabel "calidad"@es ;
     skos:definition "A measure of how well an artefact satisfies specifications."@en ;
-    skos:definition "Una medida de qué tan bien un artefacto satisface las especificaciones."@es .
+    skos:definition "Una medida de qué tan bien un artefacto satisface las especificaciones."@es ;
+    skos:exactMatch sona:Quality .
 
 :value a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "value"@en ;
     skos:prefLabel "valor"@es ;
     skos:definition "The assessed usefulness or worth of an artefact or contribution."@en ;
     skos:definition "La utilidad o valor evaluado de un artefacto o contribución."@es .
 
 :evaluate a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "evaluate"@en ;
     skos:prefLabel "evaluar"@es ;
     skos:definition "To assess an artefact or contribution against criteria or specifications."@en ;
     skos:definition "Evaluar un artefacto o contribución según criterios o especificaciones."@es .
 
 :measure a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "measure"@en ;
     skos:prefLabel "medida"@es ;
     skos:definition "A quantitative or qualitative metric used in evaluation."@en ;
-    skos:definition "Una métrica cuantitativa o cualitativa utilizada en la evaluación."@es .
+    skos:definition "Una métrica cuantitativa o cualitativa utilizada en la evaluación."@es ;
+    skos:exactMatch sona:Measure .
 
 :schematisedArtifact a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "schematised artifact"@en ;
     skos:prefLabel "artefacto esquematizado"@es ;
     skos:definition "An artefact explicitly associated with and validated by a schema."@en ;
     skos:definition "Un artefacto asociado explícitamente y validado por un esquema."@es .
 
 :schematisedSchema a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "schematised schema"@en ;
     skos:prefLabel "esquema esquematizado"@es ;
     skos:definition "A derived specification that is itself governed by a higher-level schema."@en ;
     skos:definition "Una especificación derivada que a su vez está regida por un esquema de nivel superior."@es .
 
 :isMemberOf a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "is member of"@en ;
     skos:prefLabel "es miembro de"@es ;
     skos:definition "A membership relation indicating an artefact belongs to a collection."@en ;
     skos:definition "Una relación de membresía que indica que un artefacto pertenece a una colección."@es .
 
 :object a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "object"@en ;
     skos:prefLabel "objeto"@es ;
     skos:definition "A tangible or conceptual item with a defined type or class."@en ;
     skos:definition "Un elemento tangible o conceptual con un tipo o clase definida."@es .
 
 :collection a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "collection"@en ;
     skos:prefLabel "colección"@es ;
     skos:definition "An organised set of artefacts (e.g., repository, list)."@en ;
     skos:definition "Un conjunto organizado de artefactos (p. ej., repositorio, lista)."@es .
 
 :list a skos:Concept ;
+    skos:inScheme :scheme ;
     skos:prefLabel "list"@en ;
     skos:prefLabel "lista"@es ;
     skos:definition "An ordered collection or directory of related artefacts."@en ;
     skos:definition "Una colección ordenada o directorio de artefactos relacionados."@es .
-
-.
